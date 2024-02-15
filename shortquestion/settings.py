@@ -31,12 +31,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Model-Translation settings.
+    'modeltranslation',
+    'django.contrib.admin',
+
+    # Ckeditor-settings
+    'ckeditor',
+    'ckeditor_uploader',
 
     # apps
     'main.apps.MainConfig',
@@ -45,6 +53,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',    # model-translation settings
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -53,6 +62,43 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'shortquestion.urls'
+
+# model-translation settings.
+LANGUAGES = (
+    ('uz', "Uzbek"),
+    ('en', 'English'),
+    ('ru', 'Russian'),
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
+
+MODELTRANSLATION_LANGUAGES = ('uz', 'en', 'ru')
+
+MODELTRANSLATION_TRANSLATION_FILES = (
+    'main.translation',
+)
+
+LOCALE_PATHS = [
+    BASE_DIR / 'main/locate/',
+]
+
+# CKEDITOR Settings
+
+CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'removePlugins': 'exportpdf',
+        'extraPlugins': ','.join(
+            [
+                'codesnippet',
+            ]
+        ),
+    }
+}
+
 
 TEMPLATES = [
     {
@@ -109,7 +155,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
@@ -128,7 +174,3 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-
