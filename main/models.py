@@ -27,9 +27,9 @@ class CreditQuestion(models.Model):
     """Test of the Credit."""
     title = models.CharField(max_length=255, verbose_name='Title')
     description = RichTextUploadingField(verbose_name='Description')
-    code = models.CharField(max_length=20, verbose_name='code', help_text="3050OA")
+    slug = models.CharField(max_length=20, verbose_name='Slug')
     questions = models.ManyToManyField(Question, related_name='questions', verbose_name='Question', blank=True)
 
     def __str__(self):
-        return f"{self.code} - {self.title}"
+        return f"{self.slug} - {self.title}"
 
